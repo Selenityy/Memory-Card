@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "../src/styles/App.css";
+import { useState } from "react";
+import Button from "./components/Button";
+import Game from "./components/Game";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [mode, setMode] = useState("");
+  const [gameStarted, setGameStarted] = useState(false);
+
+  const handleStartClick = () => {
+    setGameStarted(true);
+  };
+
+  const handleModeClick = (selectedMode) => {
+    setMode(selectedMode);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h1 id="title">Pokémon Memory Game</h1>
+      <p>Pick your mode:</p>
+      <Button
+        className="modeBtn"
+        type="submit"
+        text="Easy"
+        handleClick={handleModeClick("easy")}
+      />
+      <Button
+        className="modeBtn"
+        type="submit"
+        text="Medium"
+        handleClick={handleModeClick("medium")}
+      />
+      <Button
+        className="modeBtn"
+        type="submit"
+        text="Hard"
+        handleClick={handleModeClick("hard")}
+      />
+      <div id="start-button">
+        <Button
+          className="btn"
+          type="submit"
+          text="Start"
+          handleClick={handleStartClick}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {gameStarted && <Game mode={mode} />}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

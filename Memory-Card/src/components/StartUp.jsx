@@ -11,12 +11,10 @@ function StartUp({ onStart }) {
 
   const handlePickMode = (mode) => {
     setSelectedMode(mode);
-    console.log("picked a mode");
   };
 
   const handleStartClick = () => {
     onStart(selectedMode);
-    console.log("clicked start");
   };
 
   return (

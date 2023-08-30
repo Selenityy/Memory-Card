@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const Pokemon = ({ mode, pokemons, onPokemonSetUp }) => {
+const Pokemon = ({ mode, pokemons, onPokemonSetUp, onCardClick }) => {
   const possiblePokemon = 251; // up to gen 2
 
   useEffect(() => {
@@ -11,11 +11,11 @@ const Pokemon = ({ mode, pokemons, onPokemonSetUp }) => {
         const fetchedPokemonIds = []; //check id's against for duplicates
 
         let numberOfPokemon;
-        if (mode === "easy") {
+        if (mode === 5) {
           numberOfPokemon = 5;
-        } else if (mode === "medium") {
+        } else if (mode === 10) {
           numberOfPokemon = 10;
-        } else if (mode === "hard") {
+        } else if (mode === 15) {
           numberOfPokemon = 15;
         }
 
@@ -43,17 +43,18 @@ const Pokemon = ({ mode, pokemons, onPokemonSetUp }) => {
             image: data.sprites.front_default,
             clicked: false,
           };
-          fetchedPokemon.push([card]);
+          fetchedPokemon.push(card);
         }
 
-        onPokemonSetUp([fetchedPokemon]);
+        onPokemonSetUp(fetchedPokemon);
       } catch (error) {
         console.error("Error:", error);
       }
     };
 
     fetchRandomPokemon();
-  }, [mode, onPokemonSetUp]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode]);
 
   return (
     <div>
@@ -61,7 +62,7 @@ const Pokemon = ({ mode, pokemons, onPokemonSetUp }) => {
         <div
           key={pokemon.id}
           className="pokemon-cards"
-          // onClick={() => onCardClick(pokemon.id)}
+          onClick={() => onCardClick(pokemon.name)}
         >
           <h2 className="pokemon-names">{pokemon.name}</h2>
           <img

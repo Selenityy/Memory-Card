@@ -11,10 +11,12 @@ function StartUp({ onStart }) {
 
   const handlePickMode = (mode) => {
     setSelectedMode(mode);
+    console.log("picked a mode");
   };
 
   const handleStartClick = () => {
     onStart(selectedMode);
+    console.log("clicked start");
   };
 
   return (
@@ -43,7 +45,7 @@ function StartUp({ onStart }) {
           className="btn"
           type="submit"
           text="Start"
-          onClick={handleStartClick}
+          handleClick={handleStartClick}
         />
       </div>
     </div>

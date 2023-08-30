@@ -1,23 +1,23 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const Pokemon = ({ mode }) => {
-  const [pokemons, setPokemons] = useState([]);
+const Pokemon = ({ mode, pokemons, onPokemonSetUp }) => {
   const possiblePokemon = 251; // up to gen 2
-  let numberOfPokemon;
-  if (mode === "easy") {
-    numberOfPokemon = 5;
-  } else if (mode === "medium") {
-    numberOfPokemon = 10;
-  } else if (mode === "hard") {
-    numberOfPokemon = 15;
-  }
 
   useEffect(() => {
     const fetchRandomPokemon = async () => {
       try {
         const fetchedPokemon = [];
         const fetchedPokemonIds = []; //check id's against for duplicates
+
+        let numberOfPokemon;
+        if (mode === "easy") {
+          numberOfPokemon = 5;
+        } else if (mode === "medium") {
+          numberOfPokemon = 10;
+        } else if (mode === "hard") {
+          numberOfPokemon = 15;
+        }
 
         while (fetchedPokemon.length < numberOfPokemon) {
           const randomPokemonId =
@@ -43,25 +43,17 @@ const Pokemon = ({ mode }) => {
             image: data.sprites.front_default,
             clicked: false,
           };
-          fetchedPokemon.push(card);
+          fetchedPokemon.push([card]);
         }
 
-        setPokemons(fetchedPokemon);
+        onPokemonSetUp([fetchedPokemon]);
       } catch (error) {
         console.error("Error:", error);
       }
     };
 
     fetchRandomPokemon();
-  }, [numberOfPokemon]);
-
-  const handleCardClick = (clickedCardId) => {
-    setPokemons((prevPokemons) => {
-      prevPokemons.map((pokemon) =>
-        pokemon.id === clickedCardId ? { ...pokemon, clicked: true } : pokemon
-      );
-    });
-  };
+  }, [mode, onPokemonSetUp]);
 
   return (
     <div>
@@ -69,7 +61,7 @@ const Pokemon = ({ mode }) => {
         <div
           key={pokemon.id}
           className="pokemon-cards"
-          onClick={() => handleCardClick(pokemon.id)}
+          // onClick={() => onCardClick(pokemon.id)}
         >
           <h2 className="pokemon-names">{pokemon.name}</h2>
           <img

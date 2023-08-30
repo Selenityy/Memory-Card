@@ -1,26 +1,4 @@
-import { useState } from "react";
-
-function ScoreBoard({
-  currentScore,
-  onCurrentScoreChange,
-  highScore,
-  onHighScoreChange,
-}) {
-  const [currentScoreTracked, setCurrentScoreTracked] = useState("0");
-  const [highScoreTracked, setHighScoreTracked] = useState("0");
-
-  const handleCurrentScoreChange = () => {
-    setCurrentScoreTracked("1");
-    onCurrentScoreChange(currentScoreTracked);
-  };
-
-  const handleHighScoreChange = () => {
-    setHighScoreTracked("1");
-    onHighScoreChange(highScoreTracked);
-  };
-
-  //   on card button click, the handles fire
-
+function ScoreBoard({ currentScore, highScore }) {
   return (
     <>
       <h2 id="current-score" className="scores">

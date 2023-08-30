@@ -17,34 +17,38 @@ function App() {
 
   return (
     <>
-      <h1 id="title">Pokémon Memory Game</h1>
-      <p>Pick your mode:</p>
-      <Button
-        className="modeBtn"
-        type="submit"
-        text="Easy"
-        handleClick={handleModeClick("easy")}
-      />
-      <Button
-        className="modeBtn"
-        type="submit"
-        text="Medium"
-        handleClick={handleModeClick("medium")}
-      />
-      <Button
-        className="modeBtn"
-        type="submit"
-        text="Hard"
-        handleClick={handleModeClick("hard")}
-      />
-      <div id="start-button">
-        <Button
-          className="btn"
-          type="submit"
-          text="Start"
-          handleClick={handleStartClick}
-        />
-      </div>
+      {!gameStarted && (
+        <div id="beginGame">
+          <h1 id="title">Pokémon Memory Game</h1>
+          <p>Pick your mode:</p>
+          <Button
+            className="modeBtn"
+            type="submit"
+            text="Easy"
+            handleClick={() => handleModeClick("easy")}
+          />
+          <Button
+            className="modeBtn"
+            type="submit"
+            text="Medium"
+            handleClick={() => handleModeClick("medium")}
+          />
+          <Button
+            className="modeBtn"
+            type="submit"
+            text="Hard"
+            handleClick={() => handleModeClick("hard")}
+          />
+          <div id="start-button">
+            <Button
+              className="btn"
+              type="submit"
+              text="Start"
+              handleClick={handleStartClick}
+            />
+          </div>
+        </div>
+      )}
       {gameStarted && <Game mode={mode} />}
     </>
   );

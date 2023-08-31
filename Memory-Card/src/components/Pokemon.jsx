@@ -62,7 +62,7 @@ const Pokemon = ({ mode, pokemons, onPokemonSetUp, onCardClick }) => {
         <div
           key={pokemon.id}
           className="pokemon-cards"
-          onClick={() => onCardClick(pokemon.name)}
+          onClick={() => onCardClick(pokemon)}
         >
           <h2 className="pokemon-names">{pokemon.name}</h2>
           <img

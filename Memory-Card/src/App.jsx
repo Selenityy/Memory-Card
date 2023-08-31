@@ -35,8 +35,34 @@ function App() {
     setGameOver(gameState);
   };
 
-  const handleCardClick = (cardName) => {
-    console.log(`Pokemon ${cardName} clicked`);
+  const cardShuffle = () => {
+    const pokemonArray = [...pokemonCards];
+    const shuffledPokemon = [];
+    while (pokemonArray.length) {
+      const index = Math.floor(Math.random() * pokemonArray.length);
+      const pokemonCard = pokemonArray[index];
+      shuffledPokemon.push(pokemonCard);
+      pokemonArray.splice(index, 1);
+    }
+    setPokemonCards(shuffledPokemon);
+  };
+
+  const handleCardClick = (clickedCard) => {
+    const clickedCards = pokemonCards.filter(
+      (card) => card.clicked === true
+    ).length;
+    console.log(`Pokemon ${clickedCard.name} was clicked`);
+    if (clickedCard.clicked === false) {
+      clickedCard.clicked = true;
+      cardShuffle();
+      if (clickedCards === mode - 1) {
+        setGameOver(true);
+        console.log("win");
+      }
+    } else if (clickedCard.clicked === true) {
+      setGameOver(true);
+      console.log("lose");
+    }
   };
 
   return (

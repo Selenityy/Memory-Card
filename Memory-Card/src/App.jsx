@@ -99,7 +99,10 @@ function App() {
     <>
       <h1 id="title">Pokémon Memory Game</h1>
       {gameOver ? (
-        <GameOver gameResults={gameResults} />
+        <>
+          <ScoreBoard currentScore={currentScore} highScore={highScore} />
+          <GameOver gameResults={gameResults} />
+        </>
       ) : !gameStarted ? (
         <StartUp onStart={handleStart} />
       ) : (

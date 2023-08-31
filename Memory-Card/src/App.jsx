@@ -14,11 +14,6 @@ function App() {
   const [currentScore, setCurrentScore] = useState(0); // current score
   const [highScore, setHighScore] = useState(0); // current score
 
-  // const [highScore, setHighScore] = useState(() => {
-  //   const storedHighScore = JSON.parse(localStorage.getItem("highScore"));
-  //   return storedHighScore || 0; // Initialize with stored value or default to 0
-  // });
-
   const [gameOver, setGameOver] = useState(false); // check if game is won
   const [gameResults, setGameResults] = useState(""); //win or lose
 

@@ -4,6 +4,7 @@ import StartUp from "./components/StartUp";
 import ScoreBoard from "./components/ScoreBoard";
 import Pokemon from "./components/Pokemon";
 import GameOver from "./components/GameOver";
+import Button from "./components/Button";
 
 function App() {
   const getHighScoreKey = (mode) => `highScore_${mode}`;
@@ -90,6 +91,10 @@ function App() {
     }
   };
 
+  const handleRestartClick = () => {
+    window.location.reload();
+  };
+
   return (
     <>
       <h1 id="title">Pokémon Memory Game</h1>
@@ -105,6 +110,12 @@ function App() {
             pokemons={pokemonCards}
             onPokemonSetUp={handlePokemonCards}
             onCardClick={handleCardClick}
+          />
+          <Button
+            className="btn"
+            type="submit"
+            text="Restart"
+            handleClick={handleRestartClick}
           />
         </>
       )}

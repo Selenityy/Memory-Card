@@ -13,6 +13,7 @@ function App() {
   const [currentScore, setCurrentScore] = useState("0"); // current score
   const [highScore, setHighScore] = useState("0"); // high score
   const [gameOver, setGameOver] = useState(false); // check if game is won
+  const [gameResults, setGameResults] = useState(""); //win or lose
 
   const handleStart = (mode) => {
     setMode(mode);
@@ -29,10 +30,6 @@ function App() {
 
   const handleHighScore = (newHighScore) => {
     setHighScore(newHighScore);
-  };
-
-  const handleGameOver = (gameState) => {
-    setGameOver(gameState);
   };
 
   const cardShuffle = () => {
@@ -57,11 +54,11 @@ function App() {
       cardShuffle();
       if (clickedCards === mode - 1) {
         setGameOver(true);
-        console.log("win");
+        setGameResults("win");
       }
     } else if (clickedCard.clicked === true) {
       setGameOver(true);
-      console.log("lose");
+      setGameResults("lose");
     }
   };
 
@@ -69,13 +66,7 @@ function App() {
     <>
       <h1 id="title">Pokémon Memory Game</h1>
       {gameOver ? (
-        <GameOver
-          onGameOver={handleGameOver}
-          gameOver={gameOver}
-          currentScore={currentScore}
-          mode={mode}
-          clickedCard={pokemonCards}
-        />
+        <GameOver gameResults={gameResults} />
       ) : !gameStarted ? (
         <StartUp onStart={handleStart} />
       ) : (

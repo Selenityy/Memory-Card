@@ -15,8 +15,8 @@ const Pokemon = ({ mode, pokemons, onPokemonSetUp, onCardClick }) => {
           numberOfPokemon = 5;
         } else if (mode === 10) {
           numberOfPokemon = 10;
-        } else if (mode === 15) {
-          numberOfPokemon = 15;
+        } else if (mode === 20) {
+          numberOfPokemon = 20;
         }
 
         while (fetchedPokemon.length < numberOfPokemon) {

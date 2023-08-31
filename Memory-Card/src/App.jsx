@@ -1,5 +1,5 @@
 import "../src/styles/App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import Game from "./components/Game";
 import StartUp from "./components/StartUp";
 import ScoreBoard from "./components/ScoreBoard";
@@ -10,8 +10,13 @@ function App() {
   const [mode, setMode] = useState(0); // easy, medium or hard (5, 10, 20);
   const [gameStarted, setGameStarted] = useState(false); // true or false, has the game begun
   const [pokemonCards, setPokemonCards] = useState([]); // hold the fetched pokemon
-  const [currentScore, setCurrentScore] = useState("0"); // current score
-  const [highScore, setHighScore] = useState("0"); // high score
+  const [currentScore, setCurrentScore] = useState(0); // current score
+  // const [highScore, setHighScore] = useState(0);
+  const [highScore, setHighScore] = useState(() => {
+    const storedHighScore = JSON.parse(localStorage.getItem("highScore"));
+    return storedHighScore || 0; // Initialize with stored value or default to 0
+  });
+
   const [gameOver, setGameOver] = useState(false); // check if game is won
   const [gameResults, setGameResults] = useState(""); //win or lose
 
@@ -24,13 +29,23 @@ function App() {
     setPokemonCards(newPokemon);
   };
 
-  const handleCurrentScore = (newCurrentScore) => {
-    setCurrentScore(newCurrentScore);
+  const handleScores = () => {
+    setCurrentScore(currentScore + 1);
+    if (currentScore >= highScore) {
+      setHighScore(currentScore + 1);
+    }
   };
 
-  const handleHighScore = (newHighScore) => {
-    setHighScore(newHighScore);
-  };
+  useEffect(() => {
+    localStorage.setItem("highScore", JSON.stringify(highScore));
+  }, [highScore]);
+
+  useEffect(() => {
+    const highScore = JSON.parse(localStorage.getItem("highScore"));
+    if (highScore) {
+      setHighScore(highScore);
+    }
+  }, []);
 
   const cardShuffle = () => {
     const pokemonArray = [...pokemonCards];
@@ -52,6 +67,7 @@ function App() {
     if (clickedCard.clicked === false) {
       clickedCard.clicked = true;
       cardShuffle();
+      handleScores();
       if (clickedCards === mode - 1) {
         setGameOver(true);
         setGameResults("win");
@@ -71,12 +87,7 @@ function App() {
         <StartUp onStart={handleStart} />
       ) : (
         <>
-          <ScoreBoard
-            currentScore={currentScore}
-            highScore={highScore}
-            onCurrentScore={handleCurrentScore}
-            onHighScore={handleHighScore}
-          />
+          <ScoreBoard currentScore={currentScore} highScore={highScore} />
           <Pokemon
             mode={mode}
             pokemons={pokemonCards}

@@ -45,6 +45,8 @@ function App() {
       );
       setHighScore(currentScore + 1);
     }
+    console.log(`current:` + currentScore);
+    console.log(`high:` + highScore);
   };
 
   useEffect(() => {
@@ -81,7 +83,6 @@ function App() {
       handleScores();
 
       if (clickedCards === mode - 1) {
-        handleScores();
         setGameOver(true);
         setGameResults("win");
       }

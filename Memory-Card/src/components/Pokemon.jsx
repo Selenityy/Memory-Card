@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import "../styles/Pokemon.css";
 
 const Pokemon = ({ mode, pokemons, onPokemonSetUp, onCardClick }) => {
   const possiblePokemon = 251; // up to gen 2
@@ -57,19 +58,25 @@ const Pokemon = ({ mode, pokemons, onPokemonSetUp, onCardClick }) => {
   }, [mode]);
 
   return (
-    <div>
+    <div id="pokemon-cards">
       {pokemons.map((pokemon) => (
-        <div
-          key={pokemon.id}
-          className="pokemon-cards"
-          onClick={() => onCardClick(pokemon)}
-        >
-          <h2 className="pokemon-names">{pokemon.name}</h2>
-          <img
-            className="pokemon-images"
-            src={pokemon.image}
-            alt={pokemon.name}
-          />
+        <div className="pokemon-cards" key={pokemon.id}>
+          {/* Card Front */}
+          <div
+            key={pokemon.id}
+            className="card-face-front"
+            onClick={() => onCardClick(pokemon)}
+          >
+            <h2 className="pokemon-names">{pokemon.name}</h2>
+            <img
+              className="pokemon-images"
+              src={pokemon.image}
+              alt={pokemon.name}
+            />
+          </div>
+
+          {/* Card Back */}
+          <div className="card-face-back"></div>
         </div>
       ))}
     </div>

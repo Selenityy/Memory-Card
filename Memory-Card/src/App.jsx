@@ -1,21 +1,23 @@
 import "../src/styles/App.css";
 import { useState, useEffect } from "react";
-// import Game from "./components/Game";
 import StartUp from "./components/StartUp";
 import ScoreBoard from "./components/ScoreBoard";
 import Pokemon from "./components/Pokemon";
 import GameOver from "./components/GameOver";
 
 function App() {
+  const getHighScoreKey = (mode) => `highScore_${mode}`;
+
   const [mode, setMode] = useState(0); // easy, medium or hard (5, 10, 20);
   const [gameStarted, setGameStarted] = useState(false); // true or false, has the game begun
   const [pokemonCards, setPokemonCards] = useState([]); // hold the fetched pokemon
   const [currentScore, setCurrentScore] = useState(0); // current score
-  // const [highScore, setHighScore] = useState(0);
-  const [highScore, setHighScore] = useState(() => {
-    const storedHighScore = JSON.parse(localStorage.getItem("highScore"));
-    return storedHighScore || 0; // Initialize with stored value or default to 0
-  });
+  const [highScore, setHighScore] = useState(0); // current score
+
+  // const [highScore, setHighScore] = useState(() => {
+  //   const storedHighScore = JSON.parse(localStorage.getItem("highScore"));
+  //   return storedHighScore || 0; // Initialize with stored value or default to 0
+  // });
 
   const [gameOver, setGameOver] = useState(false); // check if game is won
   const [gameResults, setGameResults] = useState(""); //win or lose
@@ -23,6 +25,9 @@ function App() {
   const handleStart = (mode) => {
     setMode(mode);
     setGameStarted(true);
+    const modeHighScore =
+      JSON.parse(localStorage.getItem(getHighScoreKey(mode))) || 0;
+    setHighScore(modeHighScore);
   };
 
   const handlePokemonCards = (newPokemon) => {
@@ -30,8 +35,18 @@ function App() {
   };
 
   const handleScores = () => {
-    setCurrentScore(currentScore + 1);
+    setCurrentScore((prevCurrentScore) => prevCurrentScore + 1);
     if (currentScore >= highScore) {
+      setHighScore((prevHighScore) => prevHighScore + 1);
+    }
+
+    const currentModeHighScore =
+      JSON.parse(localStorage.getItem(getHighScoreKey(mode))) || 0;
+    if (currentScore >= currentModeHighScore) {
+      localStorage.setItem(
+        getHighScoreKey(mode),
+        JSON.stringify(currentScore + 1)
+      );
       setHighScore(currentScore + 1);
     }
   };
@@ -68,7 +83,9 @@ function App() {
       clickedCard.clicked = true;
       cardShuffle();
       handleScores();
+
       if (clickedCards === mode - 1) {
+        handleScores();
         setGameOver(true);
         setGameResults("win");
       }

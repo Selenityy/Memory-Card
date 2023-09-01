@@ -25,26 +25,26 @@ const Pokemon = ({ mode, pokemons, onPokemonSetUp, onCardClick }) => {
             Math.floor(Math.random() * possiblePokemon) + 1;
           if (!fetchedPokemonIds.includes(randomPokemonId)) {
             fetchedPokemonIds.push(randomPokemonId);
-          }
 
-          const response = await fetch(
-            `https://pokeapi.co/api/v2/pokemon/${randomPokemonId}`
-          );
-
-          if (!response.ok) {
-            throw new Error(
-              "This is an HTTP error: The status is ${response.status}"
+            const response = await fetch(
+              `https://pokeapi.co/api/v2/pokemon/${randomPokemonId}`
             );
-          }
 
-          const data = await response.json();
-          const card = {
-            id: uuidv4(),
-            name: data.name,
-            image: data.sprites.front_default,
-            clicked: false,
-          };
-          fetchedPokemon.push(card);
+            if (!response.ok) {
+              throw new Error(
+                "This is an HTTP error: The status is ${response.status}"
+              );
+            }
+
+            const data = await response.json();
+            const card = {
+              id: uuidv4(),
+              name: data.name,
+              image: data.sprites.front_default,
+              clicked: false,
+            };
+            fetchedPokemon.push(card);
+          }
         }
 
         onPokemonSetUp(fetchedPokemon);

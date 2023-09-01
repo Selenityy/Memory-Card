@@ -1,0 +1,12 @@
+#gameOverScreen {
+    margin-top: 50px;
+}
+
+#gameEndingVariable {
+  font-size: 1.5rem;
+}
+
+#gameOverTitle {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}

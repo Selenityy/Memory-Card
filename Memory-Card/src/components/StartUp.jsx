@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "./Button";
+import "../styles/StartUp.css";
 
 function StartUp({ onStart }) {
   //how many cards to show

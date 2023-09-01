@@ -1,4 +1,5 @@
 import Button from "./Button";
+import "../styles/GameOver.css";
 
 const GameOver = ({ gameResults }) => {
   let gameEnding;

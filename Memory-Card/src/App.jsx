@@ -116,7 +116,7 @@ function App() {
             onCardClick={handleCardClick}
           />
           <Button
-            className="btn"
+            className="restart-btn"
             type="submit"
             text="Restart"
             handleClick={handleRestartClick}

@@ -6,3 +6,8 @@ p {
 #start-button {
   margin: 10px;
 }
+
+#instructions {
+    font-size: 0.75rem;
+    margin-bottom: 80px;
+}

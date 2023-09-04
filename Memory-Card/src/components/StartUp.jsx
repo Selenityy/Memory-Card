@@ -20,6 +20,10 @@ function StartUp({ onStart }) {
 
   return (
     <div id="modeOptions">
+      <p id="instructions">
+        Get points by clicking on an image but don&apos;t click on any more than
+        once!
+      </p>
       <p>Pick your mode:</p>
       <Button
         className="modeBtn"
